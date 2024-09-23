@@ -13,17 +13,9 @@ mainnet = "${RPC_URL_MAINNET}"
 
 [fuzz]
 runs = 1000
-seed = '0x2'
+seed = '0x71'
 
 [invariant]
 runs = 64
 depth = 32
 fail_on_revert = true
-
-# [profile.default.model_checker]
-# contracts = { './src/CaughtWithSymbolic.sol' = ['CaughtWithSymbolic'] }
-# engine = 'chc'
-# timeout = 1000
-# targets = ['assert']
-
-# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

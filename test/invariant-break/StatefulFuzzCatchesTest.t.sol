@@ -1,28 +1,19 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.20;
+pragma solidity ^0.8.18;
 
-import {Test} from "forge-std/Test.sol";
-import {StdInvariant} from "forge-std/StdInvariant.sol";
 import {StatefulFuzzCatches} from "../../src/invariant-break/StatefulFuzzCatches.sol";
+import {Test, console} from "forge-std/Test.sol";
+import {StdInvariant} from "forge-std/StdInvariant.sol";
 
 contract StatefulFuzzCatchesTest is StdInvariant, Test {
-    StatefulFuzzCatches public sfc;
+    StatefulFuzzCatches sfc;
 
     function setUp() public {
         sfc = new StatefulFuzzCatches();
         targetContract(address(sfc));
     }
 
-    // Stateless fuzz, doesn't work
-    function testFuzzPassesEasyInvariant(uint128 randomNumber) public {
-        sfc.doMoreMathAgain(randomNumber);
-        assert(sfc.storedValue() != 0);
-    }
-
-    // // Stateful fuzz
-    // // also can use the prefix `invariant_`
-    // // Uncomment this to see it catch the issue!
-    function statefulFuzz_testMathDoesntReturnZero() public view {
+    function invariant_Never_Return_Zero() public view {
         assert(sfc.storedValue() != 0);
     }
 }
